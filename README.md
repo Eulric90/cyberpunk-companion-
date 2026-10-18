@@ -1,20 +1,20 @@
 # NIGHT CITY // COMPANION
 
-Inoffizieller, deutschsprachiger Cyberpunk-2077-Companion für das Hauptspiel und **Phantom Liberty**. Die Anwendung nutzt React, TypeScript, Vite und Leaflet und ist für GitHub Pages vorbereitet. Das HUD ist eigenständig gestaltet und enthält derzeit keine offiziellen Spielgrafiken oder Logos. Das Projekt ist ein nicht kommerzielles, inoffizielles Community-Fanprojekt und wird nicht von CD PROJEKT RED betrieben, unterstützt oder genehmigt.
+Inoffizieller, deutschsprachiger Cyberpunk-2077-Companion für das Hauptspiel und **Phantom Liberty**. Die Anwendung nutzt React, TypeScript und Vite und ist für GitHub Pages vorbereitet. Die Night-City-Karte wird extern von MapGenie über ein iframe eingebunden. Das HUD ist eigenständig gestaltet. Das Projekt ist ein nicht kommerzielles, inoffizielles Community-Fanprojekt und wird nicht von CD PROJEKT RED betrieben, unterstützt oder genehmigt.
 
 ## Funktionen im MVP
 
 - **Build Planner:** feste Community-Build-Vorlagen mit einem Eintrag pro Level (1–50 bzw. 1–60), Attributpunkt-Zuteilung, Perk-Empfehlung und Ausrüstungs-/Waffenhinweisen an passenden Meilensteinen; Fortschritt je Profil abhaken und nach aktuellem Level filtern.
 - **Charakterprofile:** mehrere lokale Spielstände mit auswählbarem Build und Level.
-- **Fortschrittstracker:** Meilensteine, Kartenpunkte und ikonische Gegenstände je Profil markieren.
-- **Interaktive Karte:** Leaflet mit Kategorien, Suche und Hauptspiel-/Phantom-Liberty-Filter.
+- **Fortschrittstracker:** Build-Meilensteine und ikonische Gegenstände je Profil markieren.
+- **Interaktive Karte:** MapGenies Night-City-Karte, eingebettet mit direktem Link als Fallback, falls der Anbieter iframes blockiert.
 - **Iconic Arsenal:** kleine durchsuchbare Auswahl ikonischer Waffen und Cyberware.
 - **Lokale Datensicherung:** automatische Speicherung im Browser sowie JSON-Export und -Import.
 - **Responsive HUD-Oberfläche:** deutsche Texte und Neon-Farbgebung für Desktop und Mobilgeräte.
 
 ## Datenqualität und Spielstand
 
-Die Build-Vorlagen sind für Cyberpunk 2077 Update 2.31 mit Phantom Liberty modelliert und bleiben kuratierte Community-Vorschläge, kein offizieller CDPR-Plan. Die offiziellen [Patchnotes zu 2.31](https://www.cyberpunk.net/de/news/51818/patch-2-31) führen keine Änderungen am Perk-System auf; daher werden die vorhandenen 2.x-Perk-Bäume zugrunde gelegt. Das ist eine Schlussfolgerung aus der Patchnotiz, keine separate CDPR-Kompatibilitätszusage. Der [offizielle CDPR Build-Planer](https://www.cyberpunk.net/de/build-planner) ist die Referenz für Aufbau und Level-/Attributumfang. Perk-Namen und -Voraussetzungen sind zusätzlich mit der bereitgestellten [Fextralife-Perk-Wiki](https://cyberpunk2077.wiki.fextralife.com/Perks) verknüpft; als Community-Wiki kann sie hinter dem aktuellen Stand zurückliegen. Die Fahrpläne sind deshalb nicht als verifizierte Spielstände auszugeben. Vor einer Kennzeichnung als verifiziert müssen Perk-Namen, Voraussetzungen und Level-Routen gegen die aktuelle Spielversion geprüft werden. Die enthaltenen Kartenmarker und Gegenstände sind **Beispieldaten des MVP**. Die Karte ist schematisch, ihre Koordinaten sind nicht verifiziert und sie eignet sich nicht zur Navigation. Ein `verified`-Feld im Datenmodell dokumentiert den Prüfstatus; Beispieldaten dürfen nicht als bestätigte Spielinformationen verstanden werden. Hinweise wie „verpassbar“ müssen für den jeweils aktuellen Patch überprüft werden.
+Die Build-Vorlagen sind für Cyberpunk 2077 Update 2.31 mit Phantom Liberty modelliert und bleiben kuratierte Community-Vorschläge, kein offizieller CDPR-Plan. Die offiziellen [Patchnotes zu 2.31](https://www.cyberpunk.net/de/news/51818/patch-2-31) führen keine Änderungen am Perk-System auf; daher werden die vorhandenen 2.x-Perk-Bäume zugrunde gelegt. Das ist eine Schlussfolgerung aus der Patchnotiz, keine separate CDPR-Kompatibilitätszusage. Der [offizielle CDPR Build-Planer](https://www.cyberpunk.net/de/build-planner) ist die Referenz für Aufbau und Level-/Attributumfang. Perk-Namen und -Voraussetzungen sind zusätzlich mit der bereitgestellten [Fextralife-Perk-Wiki](https://cyberpunk2077.wiki.fextralife.com/Perks) verknüpft; als Community-Wiki kann sie hinter dem aktuellen Stand zurückliegen. Die Fahrpläne sind deshalb nicht als verifizierte Spielstände auszugeben. Vor einer Kennzeichnung als verifiziert müssen Perk-Namen, Voraussetzungen und Level-Routen gegen die aktuelle Spielversion geprüft werden. Die enthaltenen Gegenstandsdaten sind **Beispieldaten des MVP**. Ein `verified`-Feld im Datenmodell dokumentiert den Prüfstatus; Beispieldaten dürfen nicht als bestätigte Spielinformationen verstanden werden. Hinweise wie „verpassbar“ müssen für den jeweils aktuellen Patch überprüft werden.
 
 Spielprofile werden ausschließlich clientseitig unter `nc-companion-profiles-v1` im LocalStorage des Browsers gespeichert. Sie werden nicht automatisch synchronisiert. Der JSON-Export verwendet `schemaVersion: 1`.
 
@@ -27,7 +27,7 @@ In der aktuellen Version sind folgende visuelle Ressourcen eingebunden:
 | Ressource | Verwendung und Quelle |
 | --- | --- |
 | Offizielle Cyberpunk-2077-Grafiken, Logos, Screenshots und Karten | Derzeit nicht eingebunden. |
-| Kartenillustration | Schematisches inline SVG, eigens für dieses Projekt erstellt (`src/main.tsx`); keine offizielle Karte. Marker und Koordinaten sind Beispieldaten und nicht verifiziert. |
+| Night-City-Karte | Externes iframe von [MapGenie](https://mapgenie.io/cyberpunk-2077/maps/night-city); Kartenmaterial und Rechte verbleiben bei MapGenie bzw. den jeweiligen Rechteinhabern. Beim Laden wird MapGenie direkt kontaktiert. |
 | HUD, Hintergründe und Layout | Projektspezifisches CSS in `src/style.css`. |
 | UI-Symbole | Lucide React / Lucide, [lucide.dev](https://lucide.dev/) (ISC-Lizenz; [Lizenztext](https://github.com/lucide-icons/lucide/blob/main/LICENSE)). |
 | Schriftarten | Barlow Condensed und IBM Plex Mono über [Google Fonts](https://fonts.google.com/); Urheber- und Lizenzangaben siehe jeweilige Schriftfamilien. |
@@ -56,13 +56,13 @@ Wenn weitere Grafiken hinzukommen, werden Werk, Urheber/Rechteinhaber, Quelle un
 
 ## Architektur und Datenmodelle
 
-Die Anwendung ist eine statische Single-Page-App. `main.tsx` verbindet UI, Daten und Trackerzustände. Daten liegen als typisierte, getrennte Module unter `src/data/`; React hält die aktuelle Auswahl und speichert Profiländerungen über `storage.ts` im Browser. Leaflet rendert die schematische Karte und ihre Filterebenen. Es gibt keinen Server und keine Konten- oder Cloud-Synchronisierung. Build-Vorlagen sind redaktionell festgelegt: Attribute und Perk-Reihenfolge lassen sich in der Oberfläche nicht verändern. Nach der Auswahl öffnet sich eine Detailansicht mit HUD-Attributübersicht, Level-/Relic-Status, Fortschrittsanzeige und einer chronologischen Checkliste mit genau einem Eintrag pro Charakterlevel. Level 1 dokumentiert die sieben Punkte der Charaktererstellung; jedes folgende Level weist einen Attributpunkt zu. Die Perkempfehlungen nennen Kernperks an Meilensteinen und schlagen an Zwischenstufen den nächsten Rang bzw. eine Synergie im zugehörigen Baum vor. Waffen- und Ausrüstungshinweise stehen an relevanten Meilensteinen. Diese Routen sind Community-Empfehlungen, keine verifizierten Builds oder garantierten Freischaltungen. Jeder `BuildStep` enthält Level, Attribut, Beschreibung und optional Voraussetzung sowie Quellenlink.
+Die Anwendung ist eine statische Single-Page-App. `main.tsx` verbindet UI, Daten und Trackerzustände. Daten liegen als typisierte, getrennte Module unter `src/data/`; React hält die aktuelle Auswahl und speichert Profiländerungen über `storage.ts` im Browser. Die Night-City-Karte wird als externes iframe eingebunden; ein Link öffnet MapGenie direkt, falls der Anbieter das Einbetten blockiert. Das iframe lädt Inhalte direkt vom Drittanbieter. Es gibt keinen eigenen Kartenserver und keine Konten- oder Cloud-Synchronisierung. Build-Vorlagen sind redaktionell festgelegt: Attribute und Perk-Reihenfolge lassen sich in der Oberfläche nicht verändern. Nach der Auswahl öffnet sich eine Detailansicht mit HUD-Attributübersicht, Level-/Relic-Status, Fortschrittsanzeige und einer chronologischen Checkliste mit genau einem Eintrag pro Charakterlevel. Level 1 dokumentiert die sieben Punkte der Charaktererstellung; jedes folgende Level weist einen Attributpunkt zu. Die Perkempfehlungen nennen Kernperks an Meilensteinen und schlagen an Zwischenstufen den nächsten Rang bzw. eine Synergie im zugehörigen Baum vor. Waffen- und Ausrüstungshinweise stehen an relevanten Meilensteinen. Diese Routen sind Community-Empfehlungen, keine verifizierten Builds oder garantierten Freischaltungen. Jeder `BuildStep` enthält Level, Attribut, Beschreibung und optional Voraussetzung sowie Quellenlink.
 
 Die zentralen Typen aus `src/types.ts`:
 
 - `Build`: ID, Name, Erweiterungszuordnung, Level-Cap, feste Zielattribute und geordnete Fahrplan-Schritte.
 - `BuildStep`: stabile ID, Ziellevel, Art, Beschreibung, optionale Attributvoraussetzung und Quellenlink. Checkbox-IDs sind versioniert, damit alte Beispieldaten nicht versehentlich neue Perks als erledigt markieren.
-- `SaveProfile`: ID, Name, Build-ID, Level und Listen erledigter Meilensteine, gesammelter Items und besuchter Kartenpunkte.
+- `SaveProfile`: ID, Name, Build-ID, Level und Listen erledigter Meilensteine, gesammelter Items und besuchter Kartenpunkte (für ältere lokale Profile).
 - `MapPoint`: ID, Kategorie, Stadtbezirk, schematische Koordinaten, Erweiterungszuordnung, Prüfstatus und optionale Item-IDs.
 - `Item`: ID, Typ, Quelle, Beschreibung, Erweiterungszuordnung, Verpassbarkeitshinweis und Prüfstatus.
 
