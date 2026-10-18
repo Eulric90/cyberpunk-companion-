@@ -4,4 +4,5 @@ export type Build = {id:string; name:string; tagline:string; style:string; expan
 export type Category = 'mission'|'side'|'ncpd'|'cyberpsycho'|'ripperdoc'|'weapons'|'clothing'|'fast-travel'|'apartment'|'poi';
 export type MapPoint = {id:string; name:string; category:Category; district:string; x:number; y:number; description:string; expansion:'base'|'phantom-liberty'; verified:boolean; itemIds?:string[]};
 export type Item = {id:string; name:string; kind:'weapon'|'cyberware'|'other'; subtype:string; expansion:'base'|'phantom-liberty'; source:string; description:string; missable?:boolean; pointId?:string; verified:boolean; buildIds?:string[]; recommendation?:'core'|'alternative'; sourceUrl?:string};
+export type LoadoutStage = {id:string;buildId:string;fromLevel:number;toLevel:number;expansion:'base'|'phantom-liberty';weapon:string;secondary:string;cyberware:string;focus:string;sourceUrl:string};
 export type SaveProfile = {id:string; name:string; buildId:string; level:number; completedStepIds:string[]; collectedItemIds:string[]; visitedPointIds:string[]};
