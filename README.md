@@ -4,7 +4,7 @@ Inoffizieller, deutschsprachiger Cyberpunk-2077-Companion für das Hauptspiel un
 
 ## Funktionen im MVP
 
-- **Build Planner:** feste Community-Build-Vorlagen mit Zielattributen und Level-Perk-Fahrplan; Fortschritt je Profil abhaken, nach aktuellem Level filtern und Voraussetzungen per Tooltip einsehen.
+- **Build Planner:** feste Community-Build-Vorlagen mit einem Eintrag pro Level (1–50 bzw. 1–60), Attributpunkt-Zuteilung, Perk-Empfehlung und Ausrüstungs-/Waffenhinweisen an passenden Meilensteinen; Fortschritt je Profil abhaken und nach aktuellem Level filtern.
 - **Charakterprofile:** mehrere lokale Spielstände mit auswählbarem Build und Level.
 - **Fortschrittstracker:** Meilensteine, Kartenpunkte und ikonische Gegenstände je Profil markieren.
 - **Interaktive Karte:** Leaflet mit Kategorien, Suche und Hauptspiel-/Phantom-Liberty-Filter.
@@ -56,7 +56,7 @@ Wenn weitere Grafiken hinzukommen, werden Werk, Urheber/Rechteinhaber, Quelle un
 
 ## Architektur und Datenmodelle
 
-Die Anwendung ist eine statische Single-Page-App. `main.tsx` verbindet UI, Daten und Trackerzustände. Daten liegen als typisierte, getrennte Module unter `src/data/`; React hält die aktuelle Auswahl und speichert Profiländerungen über `storage.ts` im Browser. Leaflet rendert die schematische Karte und ihre Filterebenen. Es gibt keinen Server und keine Konten- oder Cloud-Synchronisierung. Build-Vorlagen sind redaktionell festgelegt: Attribute und Perk-Reihenfolge lassen sich in der Oberfläche nicht verändern. Nach der Auswahl öffnet sich eine Detailansicht mit HUD-Attributübersicht, Level-/Relic-Status, Fortschrittsanzeige und nach Attributen gruppiertem Perk-Baum. Nutzende können nur die gewählte Vorlage und ihren Level-Fortschritt verwalten. Jeder `BuildStep` enthält Ziellevel, Kurzbeschreibung sowie optional Attributvoraussetzung und Quellenlink. Beschreibung und Voraussetzungen sind sichtbar und zusätzlich als Maus-/Fokus-Tooltip hinterlegt.
+Die Anwendung ist eine statische Single-Page-App. `main.tsx` verbindet UI, Daten und Trackerzustände. Daten liegen als typisierte, getrennte Module unter `src/data/`; React hält die aktuelle Auswahl und speichert Profiländerungen über `storage.ts` im Browser. Leaflet rendert die schematische Karte und ihre Filterebenen. Es gibt keinen Server und keine Konten- oder Cloud-Synchronisierung. Build-Vorlagen sind redaktionell festgelegt: Attribute und Perk-Reihenfolge lassen sich in der Oberfläche nicht verändern. Nach der Auswahl öffnet sich eine Detailansicht mit HUD-Attributübersicht, Level-/Relic-Status, Fortschrittsanzeige und einer chronologischen Checkliste mit genau einem Eintrag pro Charakterlevel. Level 1 dokumentiert die sieben Punkte der Charaktererstellung; jedes folgende Level weist einen Attributpunkt zu. Die Perkempfehlungen nennen Kernperks an Meilensteinen und schlagen an Zwischenstufen den nächsten Rang bzw. eine Synergie im zugehörigen Baum vor. Waffen- und Ausrüstungshinweise stehen an relevanten Meilensteinen. Diese Routen sind Community-Empfehlungen, keine verifizierten Builds oder garantierten Freischaltungen. Jeder `BuildStep` enthält Level, Attribut, Beschreibung und optional Voraussetzung sowie Quellenlink.
 
 Die zentralen Typen aus `src/types.ts`:
 
@@ -96,7 +96,7 @@ Die Projektadresse folgt dem Muster `https://<username>.github.io/<repository>/`
 
 1. Eigene oder rechtlich nutzbare Kartenbasis ergänzen und reale Koordinaten einzeln verifizieren.
 2. Patchbezogene Build-Regeln, Attribut- und Perk-Voraussetzungen mit belegbaren Quellen modellieren.
-3. Perk-Routen und Attributpunkte für Level 1–50 (Hauptspiel) bzw. 1–60 (Phantom Liberty) patchbezogen vervollständigen und im Spiel gegenprüfen.
+3. Die vollständigen Levelrouten, Perk-Voraussetzungen und Ausrüstungsempfehlungen im Spiel gegen Update 2.31 prüfen und erst danach einzelne Daten als verifiziert kennzeichnen.
 4. Vollständigere Missionen-, NCPD-, Händler-, Cyberpsycho- und Item-Datenbank mit Herkunftsnachweisen erstellen.
 5. Datenvalidierung und Tests für Voraussetzungen, Punktbudgets, Referenzen und Importmigration ergänzen.
 6. Bei größerem Datenumfang LocalStorage auf IndexedDB migrieren; optional eine bewusst aktivierbare Synchronisierung entwerfen.
