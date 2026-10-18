@@ -50,7 +50,8 @@ Wenn weitere Grafiken hinzukommen, werden Werk, Urheber/Rechteinhaber, Quelle un
     ├── storage.ts                # LocalStorage, Backup-Export/-Import
     └── data/
         ├── builds.ts             # Beispiel-Builds und Meilensteine
-        ├── items.ts              # Beispielhafte ikonische Gegenstände
+        ├── items.ts              # Ikonische Waffen und Cyberware mit Quellen
+        ├── loadoutStages.ts      # Waffen-/Cyberware-Fahrplan in Levelstufen
         └── points.ts             # Kartenkategorien und Testmarker
 ```
 
@@ -65,6 +66,9 @@ Die zentralen Typen aus `src/types.ts`:
 - `SaveProfile`: ID, Name, Build-ID, Level und Listen erledigter Meilensteine, gesammelter Items und besuchter Kartenpunkte (für ältere lokale Profile).
 - `MapPoint`: ID, Kategorie, Stadtbezirk, schematische Koordinaten, Erweiterungszuordnung, Prüfstatus und optionale Item-IDs.
 - `Item`: ID, Typ, Quelle, Beschreibung, Erweiterungszuordnung, optionale Build-Zuordnung und Empfehlungsklasse, Quellenlink, Verpassbarkeitshinweis und Prüfstatus.
+- `LoadoutStage`: Build, Levelbereich, Erweiterungsumfang sowie Waffen-, Cyberware- und Spielstil-Empfehlungen für den fortlaufenden Aufbau. Die UI trennt diesen Levelpfad von optionalen ikonischen Sammelzielen.
+
+Die Ausrüstungsstufen orientieren sich an CDPRs offiziellen Schwellen für Loot und Händler: Waffen-Tier 1 ab Level 1, Tier 2 ab 9, Tier 3 ab 17, Tier 4 ab 25, Tier 5 ab 33 und Tier 5++ ab 51 (Phantom Liberty); Cyberware-Tier 1 ab Level 1, Tier 2 ab 10, Tier 3 ab 20, Tier 4 ab 30 und Tier 5 ab 40. Das sind Verfügbarkeits-Schwellen, keine Garantie, dass jeder Gegenstand sofort bei jedem Händler erscheint. Die konkrete Waffenwahl und Cyberware-Slots bleiben Community-Empfehlungen und sind nicht einzeln im Patch-2.31-Spielstand verifiziert. Quelle: [CDPR Support – Item Tiers in Loot and Vendors](https://support.cdprojektred.com/en/cyberpunk/pc/gameplay/issue/2593/item-tiers-in-loot-and-vendors).
 
 IDs verbinden Profile mit Build-, Karten- und Itemdaten. Der Backup-Import prüft `schemaVersion: 1` und grundlegende Profilfelder.
 
