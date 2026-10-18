@@ -72,7 +72,7 @@ npm run preview
 
 ## GitHub Pages
 
-Der Workflow `.github/workflows/deploy.yml` wird bei Pushes auf `main` sowie manuell gestartet. Er installiert aus `package-lock.json` mit `npm ci`, baut `dist/` und veröffentlicht das Build-Artefakt über GitHub Pages Actions. In den Repository-Einstellungen muss unter **Settings → Pages → Build and deployment** die Quelle **GitHub Actions** aktiv sein. Die Vite-Basis `./` unterstützt Hosting unter einem Repository-Unterpfad.
+Der Workflow `.github/workflows/deploy.yml` wird bei Pushes auf `main` sowie manuell gestartet. Er richtet Pages-Metadaten ein, installiert aus `package-lock.json` mit `npm ci`, baut `dist/` und veröffentlicht das Build-Artefakt über GitHub Pages Actions. Beim ersten Einrichten muss unter **Settings → Pages → Build and deployment** einmalig die Quelle **GitHub Actions** ausgewählt werden. Die Vite-Basis `./` unterstützt Hosting unter einem Repository-Unterpfad.
 
 Die Projektadresse folgt dem Muster `https://<username>.github.io/<repository>/`.
 
