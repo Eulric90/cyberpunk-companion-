@@ -1,6 +1,6 @@
 # NIGHT CITY // COMPANION
 
-Inoffizieller, deutschsprachiger Cyberpunk-2077-Companion für das Hauptspiel und **Phantom Liberty**. Die Anwendung nutzt React, TypeScript, Vite und Leaflet und ist für GitHub Pages vorbereitet. Das HUD ist eigenständig gestaltet und enthält keine übernommenen Spielgrafiken oder Logos.
+Inoffizieller, deutschsprachiger Cyberpunk-2077-Companion für das Hauptspiel und **Phantom Liberty**. Die Anwendung nutzt React, TypeScript, Vite und Leaflet und ist für GitHub Pages vorbereitet. Das HUD ist eigenständig gestaltet und enthält derzeit keine offiziellen Spielgrafiken oder Logos. Das Projekt ist ein nicht kommerzielles, inoffizielles Community-Fanprojekt und wird nicht von CD PROJEKT RED betrieben, unterstützt oder genehmigt.
 
 ## Funktionen im MVP
 
@@ -17,6 +17,22 @@ Inoffizieller, deutschsprachiger Cyberpunk-2077-Companion für das Hauptspiel un
 Die enthaltenen Builds, Kartenmarker und Gegenstände sind **Beispieldaten des MVP**. Die Karte ist schematisch, ihre Koordinaten sind nicht verifiziert und sie eignet sich nicht zur Navigation. Ein `verified`-Feld im Datenmodell dokumentiert den Prüfstatus; Beispieldaten dürfen nicht als bestätigte Spielinformationen verstanden werden. Hinweise wie „verpassbar“ müssen für den jeweils aktuellen Patch überprüft werden.
 
 Spielprofile werden ausschließlich clientseitig unter `nc-companion-profiles-v1` im LocalStorage des Browsers gespeichert. Sie werden nicht automatisch synchronisiert. Der JSON-Export verwendet `schemaVersion: 1`.
+
+## Rechtliches und Quellen visueller Ressourcen
+
+Dieses nicht kommerzielle Fanprojekt ist inoffiziell und steht in keiner Verbindung zu CD PROJEKT RED. Cyberpunk 2077, Phantom Liberty sowie zugehörige Marken und Werke gehören ihren jeweiligen Rechteinhabern. Alle Rechte an verwendeten Grafiken und sonstigen Werken verbleiben bei den jeweiligen Urhebern bzw. Rechteinhabern; Quellenangaben übertragen keine Rechte und stellen keine Unterstützung durch die Rechteinhaber dar.
+
+In der aktuellen Version sind folgende visuelle Ressourcen eingebunden:
+
+| Ressource | Verwendung und Quelle |
+| --- | --- |
+| Offizielle Cyberpunk-2077-Grafiken, Logos, Screenshots und Karten | Derzeit nicht eingebunden. |
+| Kartenillustration | Schematisches inline SVG, eigens für dieses Projekt erstellt (`src/main.tsx`); keine offizielle Karte. Marker und Koordinaten sind Beispieldaten und nicht verifiziert. |
+| HUD, Hintergründe und Layout | Projektspezifisches CSS in `src/style.css`. |
+| UI-Symbole | Lucide React / Lucide, [lucide.dev](https://lucide.dev/) (ISC-Lizenz; [Lizenztext](https://github.com/lucide-icons/lucide/blob/main/LICENSE)). |
+| Schriftarten | Barlow Condensed und IBM Plex Mono über [Google Fonts](https://fonts.google.com/); Urheber- und Lizenzangaben siehe jeweilige Schriftfamilien. |
+
+Wenn weitere Grafiken hinzukommen, werden Werk, Urheber/Rechteinhaber, Quelle und Lizenz- oder Nutzungshinweis in dieser Liste und in der Ansicht **Über / Rechtliches** ergänzt. Die tatsächliche Nutzung erfolgt vorbehaltlich der jeweils geltenden Rechte und Richtlinien.
 
 ## Projektstruktur
 
@@ -87,4 +103,4 @@ Die Projektadresse folgt dem Muster `https://<username>.github.io/<repository>/`
 
 ## Hinweis
 
-Fanprojekt ohne Verbindung zu CD PROJEKT RED. Cyberpunk 2077 und Phantom Liberty sind Marken ihrer jeweiligen Rechteinhaber. Vor dem Einbinden offizieller Karten, Logos oder anderer Spielassets sind Nutzungsrechte zu klären.
+Nicht kommerzielles, inoffizielles Community-Fanprojekt ohne Verbindung zu CD PROJEKT RED. Cyberpunk 2077 und Phantom Liberty sind Marken ihrer jeweiligen Rechteinhaber. Alle Rechte an verwendeten Grafiken verbleiben bei den jeweiligen Urhebern und Rechteinhabern. Die im MVP enthaltenen Spiel- und Kartendaten sind teilweise Beispiele und werden nicht als verifizierte Informationen ausgegeben.
