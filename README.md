@@ -4,7 +4,7 @@ Inoffizieller, deutschsprachiger Cyberpunk-2077-Companion für das Hauptspiel un
 
 ## Funktionen im MVP
 
-- **Build Planner:** Beispiel-Builds mit Attributzielen und abhakbaren Meilensteinen; Fortschritt nach Level filterbar.
+- **Build Planner:** feste Community-Build-Vorlagen mit Zielattributen und Level-Perk-Fahrplan; Fortschritt je Profil abhaken, nach aktuellem Level filtern und Voraussetzungen per Tooltip einsehen.
 - **Charakterprofile:** mehrere lokale Spielstände mit auswählbarem Build und Level.
 - **Fortschrittstracker:** Meilensteine, Kartenpunkte und ikonische Gegenstände je Profil markieren.
 - **Interaktive Karte:** Leaflet mit Kategorien, Suche und Hauptspiel-/Phantom-Liberty-Filter.
@@ -14,7 +14,7 @@ Inoffizieller, deutschsprachiger Cyberpunk-2077-Companion für das Hauptspiel un
 
 ## Datenqualität und Spielstand
 
-Die enthaltenen Builds, Kartenmarker und Gegenstände sind **Beispieldaten des MVP**. Die Karte ist schematisch, ihre Koordinaten sind nicht verifiziert und sie eignet sich nicht zur Navigation. Ein `verified`-Feld im Datenmodell dokumentiert den Prüfstatus; Beispieldaten dürfen nicht als bestätigte Spielinformationen verstanden werden. Hinweise wie „verpassbar“ müssen für den jeweils aktuellen Patch überprüft werden.
+Die Build-Vorlagen sind für Cyberpunk 2077 Update 2.31 mit Phantom Liberty modelliert und bleiben kuratierte Community-Vorschläge, kein offizieller CDPR-Plan. Die offiziellen [Patchnotes zu 2.31](https://www.cyberpunk.net/de/news/51818/patch-2-31) führen keine Änderungen am Perk-System auf; daher werden die vorhandenen 2.x-Perk-Bäume zugrunde gelegt. Das ist eine Schlussfolgerung aus der Patchnotiz, keine separate CDPR-Kompatibilitätszusage. Der [offizielle CDPR Build-Planer](https://www.cyberpunk.net/de/build-planner) ist die Referenz für Aufbau und Level-/Attributumfang. Perk-Namen und -Voraussetzungen sind zusätzlich mit der bereitgestellten [Fextralife-Perk-Wiki](https://cyberpunk2077.wiki.fextralife.com/Perks) verknüpft; als Community-Wiki kann sie hinter dem aktuellen Stand zurückliegen. Die Fahrpläne sind deshalb nicht als verifizierte Spielstände auszugeben. Vor einer Kennzeichnung als verifiziert müssen Perk-Namen, Voraussetzungen und Level-Routen gegen die aktuelle Spielversion geprüft werden. Die enthaltenen Kartenmarker und Gegenstände sind **Beispieldaten des MVP**. Die Karte ist schematisch, ihre Koordinaten sind nicht verifiziert und sie eignet sich nicht zur Navigation. Ein `verified`-Feld im Datenmodell dokumentiert den Prüfstatus; Beispieldaten dürfen nicht als bestätigte Spielinformationen verstanden werden. Hinweise wie „verpassbar“ müssen für den jeweils aktuellen Patch überprüft werden.
 
 Spielprofile werden ausschließlich clientseitig unter `nc-companion-profiles-v1` im LocalStorage des Browsers gespeichert. Sie werden nicht automatisch synchronisiert. Der JSON-Export verwendet `schemaVersion: 1`.
 
@@ -56,12 +56,12 @@ Wenn weitere Grafiken hinzukommen, werden Werk, Urheber/Rechteinhaber, Quelle un
 
 ## Architektur und Datenmodelle
 
-Die Anwendung ist eine statische Single-Page-App. `main.tsx` verbindet UI, Daten und Trackerzustände. Daten liegen als typisierte, getrennte Module unter `src/data/`; React hält die aktuelle Auswahl und speichert Profiländerungen über `storage.ts` im Browser. Leaflet rendert die schematische Karte und ihre Filterebenen. Es gibt keinen Server und keine Konten- oder Cloud-Synchronisierung.
+Die Anwendung ist eine statische Single-Page-App. `main.tsx` verbindet UI, Daten und Trackerzustände. Daten liegen als typisierte, getrennte Module unter `src/data/`; React hält die aktuelle Auswahl und speichert Profiländerungen über `storage.ts` im Browser. Leaflet rendert die schematische Karte und ihre Filterebenen. Es gibt keinen Server und keine Konten- oder Cloud-Synchronisierung. Build-Vorlagen sind redaktionell festgelegt: Attribute und Perk-Reihenfolge lassen sich in der Oberfläche nicht verändern. Nutzende können nur die gewählte Vorlage und ihren Level-Fortschritt verwalten. Jeder `BuildStep` enthält Ziellevel, Kurzbeschreibung sowie optional Attributvoraussetzung und Quellenlink. Die Beschreibung ist sichtbar und zusätzlich als Maus-/Fokus-Tooltip hinterlegt.
 
 Die zentralen Typen aus `src/types.ts`:
 
-- `Build`: ID, Name, Erweiterungszuordnung, Zielattribute und Liste der Meilensteine.
-- `BuildStep`: stabile ID, Level, Art (Attribut, Perk, Ausrüstung oder Mission), Beschreibung und optionale Verknüpfungen.
+- `Build`: ID, Name, Erweiterungszuordnung, Level-Cap, feste Zielattribute und geordnete Fahrplan-Schritte.
+- `BuildStep`: stabile ID, Ziellevel, Art, Beschreibung, optionale Attributvoraussetzung und Quellenlink. Checkbox-IDs sind versioniert, damit alte Beispieldaten nicht versehentlich neue Perks als erledigt markieren.
 - `SaveProfile`: ID, Name, Build-ID, Level und Listen erledigter Meilensteine, gesammelter Items und besuchter Kartenpunkte.
 - `MapPoint`: ID, Kategorie, Stadtbezirk, schematische Koordinaten, Erweiterungszuordnung, Prüfstatus und optionale Item-IDs.
 - `Item`: ID, Typ, Quelle, Beschreibung, Erweiterungszuordnung, Verpassbarkeitshinweis und Prüfstatus.
@@ -96,10 +96,11 @@ Die Projektadresse folgt dem Muster `https://<username>.github.io/<repository>/`
 
 1. Eigene oder rechtlich nutzbare Kartenbasis ergänzen und reale Koordinaten einzeln verifizieren.
 2. Patchbezogene Build-Regeln, Attribut- und Perk-Voraussetzungen mit belegbaren Quellen modellieren.
-3. Vollständigere Missionen-, NCPD-, Händler-, Cyberpsycho- und Item-Datenbank mit Herkunftsnachweisen erstellen.
-4. Datenvalidierung und Tests für Voraussetzungen, Punktbudgets, Referenzen und Importmigration ergänzen.
-5. Bei größerem Datenumfang LocalStorage auf IndexedDB migrieren; optional eine bewusst aktivierbare Synchronisierung entwerfen.
-6. Tastaturbedienbarkeit, Kartenlegende und mobile Kartensteuerung weiter prüfen.
+3. Perk-Routen und Attributpunkte für Level 1–50 (Hauptspiel) bzw. 1–60 (Phantom Liberty) patchbezogen vervollständigen und im Spiel gegenprüfen.
+4. Vollständigere Missionen-, NCPD-, Händler-, Cyberpsycho- und Item-Datenbank mit Herkunftsnachweisen erstellen.
+5. Datenvalidierung und Tests für Voraussetzungen, Punktbudgets, Referenzen und Importmigration ergänzen.
+6. Bei größerem Datenumfang LocalStorage auf IndexedDB migrieren; optional eine bewusst aktivierbare Synchronisierung entwerfen.
+7. Tastaturbedienbarkeit, Kartenlegende und mobile Kartensteuerung weiter prüfen.
 
 ## Hinweis
 
