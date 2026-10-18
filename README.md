@@ -8,13 +8,13 @@ Inoffizieller, deutschsprachiger Cyberpunk-2077-Companion für das Hauptspiel un
 - **Charakterprofile:** mehrere lokale Spielstände mit auswählbarem Build und Level.
 - **Fortschrittstracker:** Build-Meilensteine und ikonische Gegenstände je Profil markieren.
 - **Interaktive Karte:** MapGenies Night-City-Karte, eingebettet mit direktem Link als Fallback, falls der Anbieter iframes blockiert.
-- **Iconic Arsenal:** kleine durchsuchbare Auswahl ikonischer Waffen und Cyberware.
+- **Arsenal:** buildgefilterte Waffen- und Cyberware-Empfehlungen mit Fundhinweisen, Quellenlinks und sichtbarem Prüfstatus.
 - **Lokale Datensicherung:** automatische Speicherung im Browser sowie JSON-Export und -Import.
 - **Responsive HUD-Oberfläche:** deutsche Texte und Neon-Farbgebung für Desktop und Mobilgeräte.
 
 ## Datenqualität und Spielstand
 
-Die Build-Vorlagen sind für Cyberpunk 2077 Update 2.31 mit Phantom Liberty modelliert und bleiben kuratierte Community-Vorschläge, kein offizieller CDPR-Plan. Die offiziellen [Patchnotes zu 2.31](https://www.cyberpunk.net/de/news/51818/patch-2-31) führen keine Änderungen am Perk-System auf; daher werden die vorhandenen 2.x-Perk-Bäume zugrunde gelegt. Das ist eine Schlussfolgerung aus der Patchnotiz, keine separate CDPR-Kompatibilitätszusage. Der [offizielle CDPR Build-Planer](https://www.cyberpunk.net/de/build-planner) ist die Referenz für Aufbau und Level-/Attributumfang. Perk-Namen und -Voraussetzungen sind zusätzlich mit der bereitgestellten [Fextralife-Perk-Wiki](https://cyberpunk2077.wiki.fextralife.com/Perks) verknüpft; als Community-Wiki kann sie hinter dem aktuellen Stand zurückliegen. Die Fahrpläne sind deshalb nicht als verifizierte Spielstände auszugeben. Vor einer Kennzeichnung als verifiziert müssen Perk-Namen, Voraussetzungen und Level-Routen gegen die aktuelle Spielversion geprüft werden. Die enthaltenen Gegenstandsdaten sind **Beispieldaten des MVP**. Ein `verified`-Feld im Datenmodell dokumentiert den Prüfstatus; Beispieldaten dürfen nicht als bestätigte Spielinformationen verstanden werden. Hinweise wie „verpassbar“ müssen für den jeweils aktuellen Patch überprüft werden.
+Die Build-Vorlagen sind für Cyberpunk 2077 Update 2.31 mit Phantom Liberty modelliert und bleiben kuratierte Community-Vorschläge, kein offizieller CDPR-Plan. Die offiziellen [Patchnotes zu 2.31](https://www.cyberpunk.net/de/news/51818/patch-2-31) führen keine Änderungen am Perk-System auf; daher werden die vorhandenen 2.x-Perk-Bäume zugrunde gelegt. Das ist eine Schlussfolgerung aus der Patchnotiz, keine separate CDPR-Kompatibilitätszusage. Der [offizielle CDPR Build-Planer](https://www.cyberpunk.net/de/build-planner) ist die Referenz für Aufbau und Level-/Attributumfang. Perk-Namen und -Voraussetzungen sind zusätzlich mit der bereitgestellten [Fextralife-Perk-Wiki](https://cyberpunk2077.wiki.fextralife.com/Perks) verknüpft; als Community-Wiki kann sie hinter dem aktuellen Stand zurückliegen. Die Fahrpläne sind deshalb nicht als verifizierte Spielstände auszugeben. Vor einer Kennzeichnung als verifiziert müssen Perk-Namen, Voraussetzungen und Level-Routen gegen die aktuelle Spielversion geprüft werden. Waffen- und Cyberware-Einträge sind **Empfehlungen aus verlinkten CDPR- bzw. Community-Build-Guides**. Sie sind aktuell durchgehend nicht im Spiel verifiziert; die UI zeigt diesen Status pro Eintrag. Community-Guides können veraltet sein. Ein „verpassbar“-Hinweis wird deshalb als Quellenhinweis angezeigt und nicht als bestätigte Patch-2.31-Aussage ausgegeben.
 
 Spielprofile werden ausschließlich clientseitig unter `nc-companion-profiles-v1` im LocalStorage des Browsers gespeichert. Sie werden nicht automatisch synchronisiert. Der JSON-Export verwendet `schemaVersion: 1`.
 
@@ -64,7 +64,7 @@ Die zentralen Typen aus `src/types.ts`:
 - `BuildStep`: stabile ID, Ziellevel, Art, Beschreibung, optionale Attributvoraussetzung und Quellenlink. Checkbox-IDs sind versioniert, damit alte Beispieldaten nicht versehentlich neue Perks als erledigt markieren.
 - `SaveProfile`: ID, Name, Build-ID, Level und Listen erledigter Meilensteine, gesammelter Items und besuchter Kartenpunkte (für ältere lokale Profile).
 - `MapPoint`: ID, Kategorie, Stadtbezirk, schematische Koordinaten, Erweiterungszuordnung, Prüfstatus und optionale Item-IDs.
-- `Item`: ID, Typ, Quelle, Beschreibung, Erweiterungszuordnung, Verpassbarkeitshinweis und Prüfstatus.
+- `Item`: ID, Typ, Quelle, Beschreibung, Erweiterungszuordnung, optionale Build-Zuordnung und Empfehlungsklasse, Quellenlink, Verpassbarkeitshinweis und Prüfstatus.
 
 IDs verbinden Profile mit Build-, Karten- und Itemdaten. Der Backup-Import prüft `schemaVersion: 1` und grundlegende Profilfelder.
 
